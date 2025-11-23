@@ -1,0 +1,63 @@
+{
+  "version": "v_20251123_235712_f1_0.5975",
+  "timestamp": "2025-11-23T23:57:12.587331",
+  "model_name": "LightGBM",
+  "test_metrics": {
+    "accuracy": 0.9094327103837222,
+    "precision": 0.6223132036847492,
+    "recall": 0.5746691871455577,
+    "f1_score": 0.5975429975429976,
+    "roc_auc": 0.9313622067842233
+  },
+  "train_metrics": {
+    "accuracy": 0.9478173173894252,
+    "precision": 0.8266738660907127,
+    "recall": 0.723705979673836,
+    "f1_score": 0.7717706364209199,
+    "roc_auc": 0.9780255039779815
+  },
+  "cv_scores": {
+    "f1_mean": 0.6149177034763882,
+    "f1_std": 0.015534020432188203,
+    "f1_scores": [
+      0.6001313197636244,
+      0.6036217303822937,
+      0.6062539885130823,
+      0.6227621483375959,
+      0.6418193303853443
+    ]
+  },
+  "parameters": {
+    "learning_rate": "0.1",
+    "max_depth": "15",
+    "n_estimators": "100",
+    "num_leaves": "50"
+  },
+  "feature_names": [
+    "age",
+    "job",
+    "marital",
+    "education",
+    "default",
+    "balance",
+    "housing",
+    "loan",
+    "contact",
+    "day",
+    "month",
+    "duration",
+    "campaign",
+    "pdays",
+    "previous",
+    "poutcome"
+  ],
+  "target_name": "y",
+  "train_shape": [
+    34705,
+    16
+  ],
+  "test_shape": [
+    9043,
+    16
+  ]
+}
