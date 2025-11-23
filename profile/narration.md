@@ -56,7 +56,9 @@ This prevents silent model decay — the most dangerous failure mode in producti
 
 The entire system is containerized with Docker. This eliminates "works on my machine" problems. The Dockerfile uses multi-stage builds for smaller images, runs as a non-root user for security, and includes health checks.
 
-I set up a GitHub Actions pipeline with four stages: quality checks (linting, testing, SonarQube), build and push to ECR, deploy to ECS, and notifications. Every push to main triggers the pipeline. Tests must pass before deployment. This is how you ship reliable ML systems — with automation and guardrails.
+I set up a complete CI/CD pipeline with GitHub Actions that deploys to AWS. The pipeline has four stages: quality checks (linting, testing), build and push to Amazon ECR (Elastic Container Registry), deploy to ECS Fargate (serverless containers), and notifications. Every push to main triggers the pipeline. Tests must pass before deployment.
+
+The system runs on AWS ECS Fargate, which is serverless container orchestration — no servers to manage. I configured IAM roles for security, CloudWatch for centralized logging, and security groups for network access. The deployment uses rolling updates for zero downtime. The live system is accessible at a public endpoint and handles real-time predictions.
 
 ### Orchestration - Airflow DAG for Production Workflow
 

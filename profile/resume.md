@@ -16,7 +16,7 @@
 
 • Deployed dual-interface serving layer using FastAPI with REST API for programmatic access and banking-style web UI for business users, enabling both real-time predictions and batch inference for campaign scoring
 
-• Established CI/CD pipeline with GitHub Actions integrating automated testing (51 unit/integration tests), SonarQube code quality checks, Docker multi-stage builds, and containerized deployment with health checks
+• Established CI/CD pipeline with GitHub Actions integrating automated testing (51 unit/integration tests), Docker multi-stage builds, and AWS ECS Fargate deployment with zero-downtime rolling updates, CloudWatch logging, and IAM security
 
 • Designed monitoring system with statistical drift detection and performance tracking, triggering automated retraining when F1-score degradation or distribution shifts exceed defined thresholds
 
@@ -37,11 +37,11 @@
 • Designed 6-component MLOps pipeline orchestrated with Apache Airflow DAG, PySpark ETL, MLflow registry, and automated validation using KS drift detection  
 • Trained and evaluated 4 ML algorithms with imbalanced data handling (SMOTE/Tomek), optimizing F1-score for business cost alignment  
 • Deployed FastAPI serving layer with REST API and web UI, supporting real-time and batch inference workflows  
-• Implemented CI/CD with GitHub Actions, Docker containerization, automated testing (51 tests), and SonarQube integration  
+• Implemented CI/CD with GitHub Actions, Docker containerization, automated testing (51 tests), and AWS ECS Fargate deployment
 • Built monitoring system with drift detection and automated retraining triggers, ensuring model reliability and compliance
 
 ---
 
 ## Technical Keywords (for ATS optimization)
 
-MLOps | Apache Airflow | PySpark | MLflow | FastAPI | Docker | CI/CD | GitHub Actions | Data Pipeline | Workflow Orchestration | DAG | Model Registry | Drift Detection | Automated Testing | REST API | Batch Inference | Feature Engineering | Class Imbalance | SMOTE | Model Monitoring | Parquet | SonarQube | Python | Scikit-learn | XGBoost | LightGBM | Pydantic | Artifact Management | Reproducibility | Production ML | Task Scheduling | XCom
+MLOps | Apache Airflow | PySpark | MLflow | FastAPI | Docker | CI/CD | GitHub Actions | AWS ECS | AWS ECR | AWS Fargate | CloudWatch | IAM | Data Pipeline | Workflow Orchestration | DAG | Model Registry | Drift Detection | Automated Testing | REST API | Batch Inference | Feature Engineering | Class Imbalance | SMOTE | Model Monitoring | Parquet | Python | Scikit-learn | XGBoost | LightGBM | Pydantic | Artifact Management | Reproducibility | Production ML | Continuous Training | Zero-Downtime Deployment

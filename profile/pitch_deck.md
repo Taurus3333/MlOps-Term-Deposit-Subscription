@@ -63,7 +63,12 @@ I optimized for F1-score, not accuracy. Why? Because the dataset is imbalanced (
 - GitHub Actions pipeline (lint → test → build → deploy)
 - Docker multi-stage builds (security, efficiency)
 - Automated testing with 51 unit/integration tests
-- SonarQube code quality checks
+- AWS ECS Fargate deployment (serverless containers)
+- Amazon ECR for Docker registry
+- CloudWatch for centralized logging
+- IAM roles and security groups for access control
+- Zero-downtime rolling updates
+- Live production endpoint
 
 **Technology Stack:**
 - PySpark for scalable ETL
