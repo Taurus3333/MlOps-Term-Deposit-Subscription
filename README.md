@@ -1,52 +1,47 @@
-# Bank Marketing Term Deposit Prediction
+# Bank Marketing ML System
 
-Production-grade MLOps system for predicting term deposit subscriptions with full CI/CD and AWS deployment.
+Production MLOps system for term deposit prediction with PySpark, MLflow, FastAPI, Docker, AWS deployment, and Airflow orchestration.
 
-## Overview
-
-End-to-end machine learning pipeline that predicts whether a bank customer will subscribe to a term deposit. Built with enterprise MLOps best practices: PySpark ETL, MLflow tracking, FastAPI serving, automated monitoring, and CI/CD deployment to AWS.
+---
 
 ## Prerequisites
 
 - Python 3.10+
-- Java JDK 11 or 17 (for PySpark)
+- Java 11 or 17 (for PySpark)
 - Docker (optional)
 - AWS Account (for deployment)
 
-## Quick Start
+---
 
-### 1. Installation
+## Installation
 
 ```bash
-# Clone repository
-git clone <repository-url>
+# Clone and setup
+git clone <repo-url>
 cd bank-marketing-prediction
-
-# Create virtual environment
 python -m venv .venv
 
 # Activate environment
-# Windows:
-.venv\Scripts\activate
-# Linux/Mac:
-source .venv/bin/activate
+.venv\Scripts\activate  # Windows
+source .venv/bin/activate  # Mac/Linux
 
 # Install dependencies
 pip install -r requirements.txt
 ```
 
-### 2. Java Setup (Required for PySpark)
+---
+
+## Java Setup (Required)
 
 **Windows:**
-1. Download JDK 11 from https://adoptium.net/
-2. Install to `C:\Program Files\Java\jdk-11`
-3. Set environment variables:
 ```cmd
+# Download JDK 11 from https://adoptium.net/
+# Install and set environment variables:
 setx JAVA_HOME "C:\Program Files\Java\jdk-11"
 setx PATH "%PATH%;%JAVA_HOME%\bin"
 ```
 
-**Linux/Mac:**
+**Mac/Linux:**
 ```bash
 # Ubuntu/Debian
 sudo apt install openjdk-11-jdk
@@ -54,47 +49,54 @@ sudo apt install openjdk-11-jdk
 # Mac
 brew install openjdk@11
 
-# Set JAVA_HOME
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+# Verify
+java -version
 ```
 
-Verify: `java -version`
+---
 
-### 3. Configuration
-
-Copy `.env.example` to `.env`:
-```bash
-cp .env.example .env
-```
-
-## Usage
-
-### Run Full ML Pipeline
+## Run ML Pipeline
 
 ```bash
 python -m src.run_pipeline
 ```
 
-**Pipeline executes:**
-1. Data Ingestion (PySpark ETL)
-2. Data Validation (schema + drift detection)
-3. Feature Transformation
-4. Model Training (MLflow tracking)
-5. Model Evaluation
-6. Model Registry (promotion if better than baseline)
+**What happens:**
+1. Data ingestion (PySpark ETL)
+2. Data validation
+3. Feature transformation
+4. Model training (MLflow)
+5. Model evaluation
+6. Model registry
 
-### Run API Server
+---
+
+## Run API Server
 
 ```bash
 uvicorn src.api:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-Access UI: http://localhost:8000
+Access: http://localhost:8000
 
-### Run with Docker
+---
+
+## Docker
+
+### Build and Run
 
 ```bash
-# Build and start
+# Build
+docker build -t bank-marketing-api .
+
+# Run
+docker run -p 8000:8000 bank-marketing-api
+```
+
+### Docker Compose
+
+```bash
+# Start all services
 docker-compose up -d
 
 # Stop
@@ -105,270 +107,173 @@ docker-compose down
 - API: http://localhost:8000
 - MLflow: http://localhost:5000
 
-## Project Structure
+---
 
-```
-├── src/
-│   ├── components/          # 6 pipeline components
-│   │   ├── data_ingestion.py
-│   │   ├── data_validation.py
-│   │   ├── data_transformation.py
-│   │   ├── model_trainer.py
-│   │   ├── model_evaluation.py
-│   │   └── model_pusher.py
-│   ├── entity/              # Config & artifact entities
-│   ├── utils/               # Utility functions
-│   ├── logging/             # Custom logger
-│   ├── exception/           # Custom exceptions
-│   ├── monitoring/          # Drift detection
-│   ├── api.py              # FastAPI application
-│   └── run_pipeline.py     # Pipeline orchestration
-├── tests/                   # Test suite (51 tests)
-├── data/                    # Raw data
-├── cleaned_data/            # Processed Parquet files
-├── artifacts/               # Pipeline outputs
-├── mlruns/                  # MLflow experiments
-├── model_registry/          # Production models
-├── static/                  # Web UI assets
-├── templates/               # HTML templates
-├── .github/workflows/       # CI/CD pipelines
-├── Dockerfile               # Container definition
-├── docker-compose.yml       # Multi-service setup
-├── requirements.txt         # Dependencies
-├── CICD.md                  # AWS deployment guide
-└── README.md               # This file
+## Airflow (Continuous Training)
+
+### Option 1: Docker (Easiest)
+
+```bash
+cd airflow
+docker-compose up -d
 ```
 
-## Key Features
+Access: http://localhost:8080 (admin/admin)
 
-### Data Engineering
-- **PySpark ETL** - Scalable data processing
-- **Parquet Storage** - Columnar, compressed format
-- **Schema Validation** - Automated quality gates
-- **Drift Detection** - KS tests for distribution shifts
+### Option 2: Standalone
 
-### Machine Learning
-- **4 Algorithms** - Logistic Regression, Random Forest, XGBoost, LightGBM
-- **Imbalanced Data** - SMOTE + Tomek Links
-- **F1-Score Optimization** - Business-aligned metrics
-- **MLflow Tracking** - Experiment management
+```bash
+# Install
+pip install apache-airflow==2.7.0
 
-### Deployment
-- **FastAPI** - High-performance REST API
-- **Web UI** - Banking-style interface for business users
-- **Batch Inference** - Campaign scoring
-- **Real-time Predictions** - Instant results
+# Setup
+export AIRFLOW_HOME=$(pwd)/airflow
+airflow db init
 
-### MLOps
-- **6 Modular Components** - Ingestion → Validation → Transformation → Training → Evaluation → Pusher
-- **Model Registry** - Automated promotion
-- **Monitoring** - Drift detection + retraining triggers
-- **Artifact Versioning** - Full lineage tracking
+# Create user
+airflow users create \
+    --username admin \
+    --password admin \
+    --firstname Admin \
+    --lastname User \
+    --role Admin \
+    --email admin@example.com
 
-### CI/CD & Cloud
-- **GitHub Actions** - Automated pipeline
-- **Docker** - Containerization
-- **AWS ECS Fargate** - Serverless deployment
-- **Amazon ECR** - Docker registry
-- **CloudWatch** - Centralized logging
-- **Zero Downtime** - Rolling updates
+# Copy DAG
+mkdir -p airflow/dags
+cp airflow/dags/bank_marketing_training_dag.py airflow/dags/
+
+# Start (2 terminals)
+airflow webserver --port 8080  # Terminal 1
+airflow scheduler              # Terminal 2
+```
+
+**Trigger DAG:**
+1. Open http://localhost:8080
+2. Toggle DAG to "On"
+3. Click "Trigger DAG"
+
+---
+
+## AWS Deployment
+
+See **CICD.md** for complete guide.
+
+**Quick steps:**
+1. Create AWS account + IAM user
+2. Install AWS CLI: `aws configure`
+3. Create ECR repository
+4. Create ECS cluster + service
+5. Add GitHub secrets
+6. Push to main → auto-deploy
+
+**Live endpoint:** http://44.210.237.18:8000
+
+---
 
 ## Testing
 
 ```bash
-# Run all tests
+# Run tests
 pytest tests/ -v
 
 # With coverage
 pytest tests/ --cov=src --cov-report=html
 
-# View coverage report
+# View report
 start htmlcov/index.html  # Windows
 open htmlcov/index.html   # Mac
 ```
 
-**Test Coverage:**
-- 51 automated tests
-- Unit + Integration tests
-- API endpoint tests
-- ~75% code coverage
+---
 
-## Monitoring
+## Project Structure
 
-### MLflow UI
+```
+├── src/
+│   ├── components/      # 6 pipeline components
+│   ├── api.py          # FastAPI app
+│   └── run_pipeline.py # Orchestrator
+├── airflow/
+│   └── dags/           # Airflow DAG
+├── tests/              # 51 tests
+├── data/               # Raw data
+├── mlruns/             # MLflow experiments
+├── Dockerfile          # Container
+└── docker-compose.yml  # Multi-service
+```
+
+---
+
+## Quick Commands
+
+```bash
+# Run pipeline
+python -m src.run_pipeline
+
+# Run API
+uvicorn src.api:app --reload
+
+# Run tests
+pytest tests/ -v
+
+# Docker
+docker-compose up -d
+
+# Airflow
+cd airflow && docker-compose up -d
+```
+
+---
+
+## MLflow UI
 
 ```bash
 mlflow ui --backend-store-uri file:./mlruns
 ```
 
-Access at: http://localhost:5000
-
-### View Logs
-
-```bash
-# Local logs
-tail -f logs/*.log
-
-# Docker logs
-docker-compose logs -f api
-```
-
-## CI/CD Pipeline
-
-**Automated on every push to main:**
-
-1. **Quality Checks**
-   - Linting (flake8)
-   - Code formatting (black)
-   - 51 automated tests
-   - Coverage reports
-
-2. **Build & Push**
-   - Docker image build
-   - Vulnerability scanning
-   - Push to Amazon ECR
-
-3. **Deploy**
-   - Update ECS task definition
-   - Rolling deployment to Fargate
-   - Health checks
-
-4. **Notifications**
-   - Deployment status alerts
-
-## AWS Deployment
-
-See **CICD.md** for complete step-by-step AWS deployment guide.
-
-**Quick summary:**
-1. Set up AWS account + IAM user
-2. Create ECR repository
-3. Create ECS cluster + service
-4. Configure GitHub secrets
-5. Push to main → automatic deployment
-
-## API Endpoints
-
-- `GET /` - Web UI
-- `GET /health` - Health check
-- `POST /predict` - Make prediction
-- `GET /metrics` - Model metrics
-
-**Example prediction request:**
-```bash
-curl -X POST http://localhost:8000/predict \
-  -H "Content-Type: application/json" \
-  -d '{
-    "age": 35,
-    "job": "technician",
-    "marital": "married",
-    "education": "secondary",
-    "default": "no",
-    "balance": 1500,
-    "housing": "yes",
-    "loan": "no",
-    "contact": "cellular",
-    "day": 15,
-    "month": "may",
-    "duration": 300,
-    "campaign": 2,
-    "pdays": -1,
-    "previous": 0,
-    "poutcome": "unknown"
-  }'
-```
-
-## Makefile Commands
-
-```bash
-make setup          # Setup environment
-make run-pipeline   # Run ML pipeline
-make run-api        # Start API server
-make test           # Run tests
-make test-coverage  # Tests with coverage
-make docker-build   # Build Docker image
-make docker-up      # Start containers
-make docker-down    # Stop containers
-make clean          # Clean artifacts
-```
-
-## Technology Stack
-
-**Languages & Frameworks:**
-- Python 3.10
-- PySpark
-- FastAPI
-- HTML/CSS/JavaScript
-
-**ML & Data Science:**
-- Scikit-learn
-- XGBoost
-- LightGBM
-- Pandas, NumPy
-- Imbalanced-learn
-
-**MLOps:**
-- MLflow (tracking + registry)
-- Evidently (drift detection)
-
-**DevOps & Cloud:**
-- Docker & Docker Compose
-- GitHub Actions
-- AWS (ECS, ECR, CloudWatch)
-
-**Testing:**
-- Pytest
-- Coverage.py
-
-## Troubleshooting
-
-**PySpark Java Error:**
-- Ensure JAVA_HOME is set correctly
-- Use Java 11 or 17 (not Java 8 or 21)
-- Restart terminal after setting environment variables
-
-**Docker Issues:**
-- Ensure Docker Desktop is running
-- Check ports 8000 and 5000 are available
-
-**Import Errors:**
-- Activate virtual environment
-- Run `pip install -r requirements.txt`
-
-**AWS Deployment Issues:**
-- Check IAM permissions
-- Verify GitHub secrets are set
-- Review CloudWatch logs
-
-## Project Highlights
-
-✅ **Production-Grade** - Enterprise MLOps practices  
-✅ **Scalable** - PySpark for big data processing  
-✅ **Automated** - Full CI/CD pipeline  
-✅ **Monitored** - Drift detection + retraining  
-✅ **Tested** - 51 automated tests  
-✅ **Deployed** - AWS ECS Fargate  
-✅ **Documented** - Comprehensive guides  
-
-## Business Impact
-
-- **Improved Targeting** - 25-40% conversion vs 12% baseline
-- **Cost Reduction** - Eliminate low-probability customers
-- **Faster Iteration** - Hours instead of weeks
-- **Compliance** - Full audit trail
-- **Reliability** - Automated, repeatable process
-
-## License
-
-MIT
-
-## Documentation
-
-- **CICD.md** - Complete AWS deployment guide
-- **TESTING.md** - Testing documentation
-- **profile/** - Interview materials (pitch deck, narration, resume)
+Access: http://localhost:5000
 
 ---
 
-**Built with production MLOps best practices for enterprise de#   D e p l o y m e n t   t e s t  
- 
+## Troubleshooting
+
+**PySpark Error:**
+- Set JAVA_HOME correctly
+- Use Java 11 or 17
+- Restart terminal
+
+**Docker Error:**
+- Start Docker Desktop
+- Check ports 8000, 5000, 8080
+
+**Import Error:**
+- Activate virtual environment
+- Run `pip install -r requirements.txt`
+
+---
+
+## What You Get
+
+✅ PySpark ETL pipeline  
+✅ MLflow experiment tracking  
+✅ FastAPI REST API + Web UI  
+✅ Docker containerization  
+✅ AWS ECS deployment  
+✅ GitHub Actions CI/CD  
+✅ Airflow continuous training  
+✅ 51 automated tests  
+
+---
+
+## Tech Stack
+
+**ML:** Scikit-learn, XGBoost, LightGBM, Imbalanced-learn  
+**Data:** PySpark, Pandas, Parquet  
+**MLOps:** MLflow, Airflow  
+**API:** FastAPI, Pydantic  
+**Cloud:** AWS (ECS, ECR, CloudWatch)  
+**DevOps:** Docker, GitHub Actions  
+
+---
+
