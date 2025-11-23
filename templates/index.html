@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Marketing Prediction System</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <rect width="40" height="40" rx="8" fill="#1e3a8a"/>
+                    <path d="M20 10L28 16V28H12V16L20 10Z" fill="white"/>
+                    <rect x="16" y="20" width="8" height="8" fill="#1e3a8a"/>
+                </svg>
+                <h1>Bank Marketing Intelligence</h1>
+            </div>
+            <div class="status">
+                <span class="status-indicator"></span>
+                <span>System Online</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Info Cards -->
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="card-icon">📊</div>
+                    <div class="card-content">
+                        <h3>ML-Powered</h3>
+                        <p>Advanced prediction model</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-content">
+                        <h3>High Accuracy</h3>
+                        <p>Optimized for precision</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="card-icon">⚡</div>
+                    <div class="card-content">
+                        <h3>Real-time</h3>
+                        <p>Instant predictions</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prediction Form -->
+            <div class="prediction-section">
+                <h2>Term Deposit Subscription Prediction</h2>
+                <p class="subtitle">Enter customer information to predict term deposit subscription likelihood</p>
+
+                <form id="predictionForm" class="prediction-form">
+                    <!-- Personal Information -->
+                    <div class="form-section">
+                        <h3>Personal Information</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="age">Age</label>
+                                <input type="number" id="age" name="age" min="18" max="100" value="35" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="job">Job</label>
+                                <select id="job" name="job" required>
+                                    <option value="management">Management</option>
+                                    <option value="technician">Technician</option>
+                                    <option value="entrepreneur">Entrepreneur</option>
+                                    <option value="blue-collar">Blue-collar</option>
+                                    <option value="admin.">Admin</option>
+                                    <option value="services">Services</option>
+                                    <option value="retired">Retired</option>
+                                    <option value="self-employed">Self-employed</option>
+                                    <option value="unemployed">Unemployed</option>
+                                    <option value="housemaid">Housemaid</option>
+                                    <option value="student">Student</option>
+                                    <option value="unknown">Unknown</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="marital">Marital Status</label>
+                                <select id="marital" name="marital" required>
+                                    <option value="married">Married</option>
+                                    <option value="single">Single</option>
+                                    <option value="divorced">Divorced</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="education">Education</label>
+                                <select id="education" name="education" required>
+                                    <option value="tertiary">Tertiary</option>
+                                    <option value="secondary">Secondary</option>
+                                    <option value="primary">Primary</option>
+                                    <option value="unknown">Unknown</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Financial Information -->
+                    <div class="form-section">
+                        <h3>Financial Information</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="balance">Balance (€)</label>
+                                <input type="number" id="balance" name="balance" value="1500" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="default">Credit Default</label>
+                                <select id="default" name="default" required>
+                                    <option value="no">No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="housing">Housing Loan</label>
+                                <select id="housing" name="housing" required>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="loan">Personal Loan</label>
+                                <select id="loan" name="loan" required>
+                                    <option value="no">No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Campaign Information -->
+                    <div class="form-section">
+                        <h3>Campaign Information</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="contact">Contact Type</label>
+                                <select id="contact" name="contact" required>
+                                    <option value="cellular">Cellular</option>
+                                    <option value="telephone">Telephone</option>
+                                    <option value="unknown">Unknown</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="day">Contact Day</label>
+                                <input type="number" id="day" name="day" min="1" max="31" value="15" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="month">Contact Month</label>
+                                <select id="month" name="month" required>
+                                    <option value="may">May</option>
+                                    <option value="jun">June</option>
+                                    <option value="jul">July</option>
+                                    <option value="aug">August</option>
+                                    <option value="sep">September</option>
+                                    <option value="oct">October</option>
+                                    <option value="nov">November</option>
+                                    <option value="dec">December</option>
+                                    <option value="jan">January</option>
+                                    <option value="feb">February</option>
+                                    <option value="mar">March</option>
+                                    <option value="apr">April</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="duration">Duration (seconds)</label>
+                                <input type="number" id="duration" name="duration" min="0" value="300" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="campaign">Campaign Contacts</label>
+                                <input type="number" id="campaign" name="campaign" min="1" value="2" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pdays">Days Since Last Contact</label>
+                                <input type="number" id="pdays" name="pdays" min="-1" value="-1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="previous">Previous Contacts</label>
+                                <input type="number" id="previous" name="previous" min="0" value="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="poutcome">Previous Outcome</label>
+                                <select id="poutcome" name="poutcome" required>
+                                    <option value="unknown">Unknown</option>
+                                    <option value="success">Success</option>
+                                    <option value="failure">Failure</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-predict">
+                        <span>Predict Subscription</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M10 4L16 10L10 16M16 10H4" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </button>
+                </form>
+
+                <!-- Results -->
+                <div id="results" class="results hidden">
+                    <h3>Prediction Results</h3>
+                    <div class="result-card">
+                        <div class="result-main">
+                            <div class="result-prediction">
+                                <span class="result-label">Prediction:</span>
+                                <span id="predictionValue" class="result-value"></span>
+                            </div>
+                            <div class="result-probability">
+                                <span class="result-label">Probability:</span>
+                                <span id="probabilityValue" class="result-value"></span>
+                            </div>
+                        </div>
+                        <div class="result-confidence">
+                            <span class="result-label">Confidence:</span>
+                            <span id="confidenceValue" class="confidence-badge"></span>
+                        </div>
+                        <div class="result-recommendation">
+                            <span class="result-label">Recommendation:</span>
+                            <p id="recommendationValue"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 Bank Marketing Intelligence System | Powered by Machine Learning</p>
+        </footer>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

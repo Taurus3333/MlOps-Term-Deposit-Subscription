@@ -1,0 +1,89 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+model_registry/
+MANIFEST
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Environment
+.env
+
+# Logs
+logs/*.log
+*.log
+
+# Artifacts & Models
+artifacts/
+!artifacts/.gitkeep
+mlruns/
+mlartifacts/
+
+# Data
+cleaned_data/*.parquet
+cleaned_data/*.csv
+!cleaned_data/.gitkeep
+data/bank-full.csv
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.tar
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Spark
+derby.log
+metastore_db/
+spark-warehouse/
+
+# Results
+results.json
+logs/

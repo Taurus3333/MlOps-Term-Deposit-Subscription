@@ -1,0 +1,35 @@
+{
+  "family": "bank-marketing-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "1024",
+  "memory": "2048",
+  "executionRoleArn": "arn:aws:iam::688567278334:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "bank-marketing-api",
+      "image": "688567278334.dkr.ecr.us-east-1.amazonaws.com/bank-marketing-api:latest",
+      "portMappings": [
+        {
+          "containerPort": 8000,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "MLFLOW_TRACKING_URI",
+          "value": "file:./mlruns"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/bank-marketing",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "api"
+        }
+      }
+    }
+  ]
+}
