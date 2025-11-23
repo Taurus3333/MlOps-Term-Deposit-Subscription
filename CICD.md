@@ -470,18 +470,7 @@ git push -u origin main
 - Value: `bank-marketing-api`
 - Click **"Add secret"**
 
-**Secret 4: SONAR_TOKEN (Optional - for code quality)**
-- If you want SonarQube scanning:
-  1. Go to https://sonarcloud.io
-  2. Sign up with GitHub
-  3. Create new project
-  4. Generate token
-  5. Add as secret with name `SONAR_TOKEN`
 
-**Secret 5: SONAR_HOST_URL (Optional)**
-- Name: `SONAR_HOST_URL`
-- Value: `https://sonarcloud.io`
-- Click **"Add secret"**
 
 **Result:** Your secrets are configured. You should see them listed (values are hidden).
 
