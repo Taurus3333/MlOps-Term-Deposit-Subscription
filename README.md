@@ -255,14 +255,14 @@ Access: http://localhost:5000
 
 ## What You Get
 
-✅ PySpark ETL pipeline  
-✅ MLflow experiment tracking  
-✅ FastAPI REST API + Web UI  
-✅ Docker containerization  
-✅ AWS ECS deployment  
-✅ GitHub Actions CI/CD  
-✅ Airflow continuous training  
-✅ 51 automated tests  
+PySpark ETL pipeline  
+MLflow experiment tracking  
+FastAPI REST API + Web UI  
+Docker containerization  
+AWS ECS deployment  
+GitHub Actions CI/CD  
+Airflow continuous training  
+Automated pipeline
 
 ---
 
